@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>线条</title>
+
+    <style>
+        body {font: 10pt arial;}
+    </style>
+
+    <script type="text/javascript" src="../public/vis.min.js"></script>
+
+    <script type="text/javascript">
+        var data = null;
+        var graph = null;
+
+        function drawVisualization() {
+            data = new vis.DataSet();
+
+            var steps = 500;
+            var axisMax = 314;
+            var tmax = 4 * 2 * Math.PI;
+            for (var t = 0; t < tmax; t += tmax / steps) {
+                var r = 1;
+                var x = r * Math.sin(t);
+                var y = r * Math.cos(t);
+                var z = t / tmax;
+                data.add({x:x,y:y,z:z});
+            }
+
+            var options = {
+                width:  '600px',
+                height: '600px',
+                style: 'line',
+                showPerspective: false,
+                showGrid: true,
+                keepAspectRatio: true,
+                verticalRatio: 1.0
+            };
+
+            var container = document.getElementById('mygraph');
+            graph = new vis.Graph3d(container, data, options);
+
+//            graph.setCameraPosition(0.4, undefined, undefined);
+//            graph.setCameraPosition(0.4, 6, 5.0);
+            //setCameraPosition函数有三个参数，是{horizontal: 1.0, vertical: 0.5, distance: 1.7}
+            // 第一个参数范围是 0 and 2*Pi
+            // 第二个参数范围是 0 and 0.5*Pi
+            // 第三个参数范围是 0.71 to 5.0
+
+        }
+    </script>
+
+</head>
+
+<body onload="drawVisualization()">
+<div id="mygraph"></div>
+
+</body>
+</html>
